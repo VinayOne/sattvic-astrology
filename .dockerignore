@@ -1,0 +1,8 @@
+.deps/
+.venv/
+__pycache__/
+*.py[cod]
+*.pdf
+.gitignore
+README.md
+generate_demo.py
