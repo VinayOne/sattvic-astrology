@@ -56,7 +56,7 @@ _FORM_HTML = """<!doctype html>
       margin: 0;
       font-family: 'Open Sans', Arial, sans-serif;
       color: var(--ink);
-      background: #f5f5f5;
+      background: transparent;
     }
     main {
       width: min(960px, calc(100% - 24px));
