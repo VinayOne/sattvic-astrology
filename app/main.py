@@ -37,59 +37,64 @@ _FORM_HTML = """<!doctype html>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Free Vedic Astrology Report – Sattvic Gyaan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --green: #154734;
-      --saffron: #c56a1a;
-      --gold: #f5e7be;
-      --ink: #1f2a24;
-      --paper: #fbfaf5;
-      --muted: #5d665f;
+      --primary: #8B0000;
+      --primary-dark: #6B0000;
+      --accent: #CC0000;
+      --accent-light: #fff0f0;
+      --ink: #1a1a1a;
+      --muted: #666666;
+      --border: #e0e0e0;
+      --bg: #ffffff;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
+      font-family: 'Open Sans', Arial, sans-serif;
       color: var(--ink);
-      background:
-        linear-gradient(120deg, rgba(21,71,52,.08), rgba(197,106,26,.10)),
-        var(--paper);
+      background: #f5f5f5;
     }
     main {
-      width: min(960px, calc(100% - 32px));
-      margin: 36px auto;
+      width: min(960px, calc(100% - 24px));
+      margin: 28px auto;
       display: grid;
       grid-template-columns: 1fr 1.25fr;
-      gap: 32px;
+      gap: 28px;
       align-items: start;
     }
-    .intro { padding: 26px 0; }
+    .intro { padding: 20px 0; }
     h1 {
-      margin: 0 0 14px;
-      color: var(--green);
-      font-size: clamp(1.8rem, 4.5vw, 3.6rem);
-      line-height: 1.1;
+      margin: 0 0 12px;
+      color: var(--primary);
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.15;
     }
     .tagline {
-      margin: 0 0 18px;
-      font-size: 1.05rem;
+      margin: 0 0 16px;
+      font-size: 1rem;
       line-height: 1.7;
       color: var(--muted);
     }
     .bullets {
       margin: 0;
       padding: 0 0 0 1.2em;
-      font-size: .95rem;
+      font-size: .92rem;
       line-height: 1.9;
       color: var(--ink);
     }
+    .bullets li::marker { color: var(--accent); }
     form {
-      background: white;
-      border: 1px solid #e4d8b5;
-      border-top: 8px solid var(--saffron);
-      border-radius: 8px;
-      padding: 24px;
-      box-shadow: 0 18px 45px rgba(31,42,36,.10);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-top: 5px solid var(--accent);
+      border-radius: 4px;
+      padding: 22px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
       display: grid;
       grid-template-columns: repeat(2, minmax(0,1fr));
       gap: 14px;
@@ -97,24 +102,27 @@ _FORM_HTML = """<!doctype html>
     label {
       display: grid;
       gap: 5px;
-      font-size: .9rem;
-      font-weight: 700;
-      color: var(--green);
+      font-size: .85rem;
+      font-weight: 600;
+      color: #333;
+      text-transform: uppercase;
+      letter-spacing: .03em;
     }
     .wide { grid-column: 1 / -1; }
     input, select {
       width: 100%;
-      border: 1px solid #cfc7ad;
-      border-radius: 6px;
-      padding: 10px 12px;
-      font: 1rem Georgia, "Times New Roman", serif;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 9px 11px;
+      font: 1rem 'Open Sans', Arial, sans-serif;
       color: var(--ink);
-      background: #fffefa;
+      background: #fafafa;
       transition: border-color .15s;
     }
     input:focus, select:focus {
       outline: none;
-      border-color: var(--green);
+      border-color: var(--accent);
+      background: #fff;
     }
     .place-wrap { position: relative; grid-column: 1 / -1; }
     #suggestions {
@@ -122,21 +130,22 @@ _FORM_HTML = """<!doctype html>
       top: 100%;
       left: 0; right: 0;
       background: white;
-      border: 1px solid #cfc7ad;
+      border: 1px solid var(--border);
       border-top: none;
-      border-radius: 0 0 6px 6px;
+      border-radius: 0 0 3px 3px;
       z-index: 10;
       max-height: 200px;
       overflow-y: auto;
+      box-shadow: 0 4px 8px rgba(0,0,0,.1);
     }
     #suggestions li {
       padding: 9px 12px;
       cursor: pointer;
-      font-size: .92rem;
+      font-size: .9rem;
       list-style: none;
-      border-bottom: 1px solid #f0e8d0;
+      border-bottom: 1px solid #f0f0f0;
     }
-    #suggestions li:hover { background: var(--gold); }
+    #suggestions li:hover { background: var(--accent-light); color: var(--primary); }
     .coords-row {
       grid-column: 1 / -1;
       display: grid;
@@ -144,15 +153,17 @@ _FORM_HTML = """<!doctype html>
       gap: 14px;
     }
     .coords-row label { grid-column: auto; }
-    .hint { font-size: .78rem; color: var(--muted); font-weight: 400; margin-top: 2px; }
+    .hint { font-size: .76rem; color: var(--muted); font-weight: 400; margin-top: 2px; text-transform: none; letter-spacing: 0; }
     button[type=submit] {
       grid-column: 1 / -1;
       border: 0;
-      border-radius: 6px;
-      padding: 13px 16px;
-      font: 700 1rem Georgia, "Times New Roman", serif;
+      border-radius: 3px;
+      padding: 12px 16px;
+      font: 700 .95rem 'Open Sans', Arial, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: .05em;
       color: white;
-      background: var(--green);
+      background: var(--accent);
       cursor: pointer;
       transition: background .15s;
       display: flex;
@@ -160,7 +171,7 @@ _FORM_HTML = """<!doctype html>
       justify-content: center;
       gap: 8px;
     }
-    button[type=submit]:hover:not(:disabled) { background: #0f3728; }
+    button[type=submit]:hover:not(:disabled) { background: var(--primary); }
     button[type=submit]:disabled { opacity: .65; cursor: not-allowed; }
     .spinner {
       display: none;
@@ -187,9 +198,9 @@ _FORM_HTML = """<!doctype html>
       flex-direction: column;
       align-items: center;
       gap: 12px;
-      background: linear-gradient(135deg, #f0faf4, #fdf9ee);
-      border: 1.5px solid #a8d5b5;
-      border-radius: 8px;
+      background: var(--accent-light);
+      border: 1.5px solid #f5b5b5;
+      border-radius: 4px;
       padding: 18px 20px;
       text-align: center;
     }
@@ -200,29 +211,32 @@ _FORM_HTML = """<!doctype html>
     .download-card .ready-title {
       font-size: 1rem;
       font-weight: 700;
-      color: var(--green);
+      color: var(--primary);
       margin: 0;
     }
     .download-card .ready-sub {
-      font-size: .85rem;
+      font-size: .82rem;
       color: var(--muted);
       margin: 0;
+      word-break: break-all;
     }
     .download-card .dl-btn {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: var(--saffron);
+      background: var(--primary);
       color: white;
       border: 0;
-      border-radius: 6px;
-      padding: 11px 22px;
-      font: 700 .95rem Georgia, "Times New Roman", serif;
+      border-radius: 3px;
+      padding: 11px 24px;
+      font: 700 .9rem 'Open Sans', Arial, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: .05em;
       cursor: pointer;
       text-decoration: none;
       transition: background .15s;
     }
-    .download-card .dl-btn:hover { background: #a85a14; }
+    .download-card .dl-btn:hover { background: var(--primary-dark); }
     .download-card .reset-link {
       font-size: .82rem;
       color: var(--muted);
@@ -231,9 +245,10 @@ _FORM_HTML = """<!doctype html>
       background: none;
       border: none;
       padding: 0;
+      font-family: 'Open Sans', Arial, sans-serif;
     }
     @media (max-width: 760px) {
-      main { grid-template-columns: 1fr; margin-top: 20px; }
+      main { grid-template-columns: 1fr; margin-top: 16px; }
       form { grid-template-columns: 1fr; }
       .wide, .place-wrap { grid-column: auto; }
       .coords-row { grid-template-columns: 1fr; }
