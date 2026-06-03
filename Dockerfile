@@ -2,8 +2,8 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-# pyswisseph needs gcc + libc headers (math.h) at build time
-RUN apt-get update && apt-get install -y --no-install-recommends gcc libc6-dev && \
+# pyswisseph needs gcc, g++, and libc headers to compile
+RUN apt-get update && apt-get install -y --no-install-recommends build-essential && \
     rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
